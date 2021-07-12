@@ -1,0 +1,308 @@
+<script>
+  function RunPod(){
+  var input1 = document.getElementById("in1").value;
+  var input2 = document.getElementById("in2").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl run "+ input1 +" --image="+ input2 + " --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function CrtDep(){
+  var input3 = document.getElementById("in3").value;
+  var input4 = document.getElementById("in4").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl create deployment "+ input3 +" --image="+ input4 + " --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function ExposeDep(){
+  var input5 = document.getElementById("in5").value;
+  var input6 = document.getElementById("in6").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl expose deployment "+ input5 +" --port="+ input6 + " --type NodePort --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function GetPods(){
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl get pods --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function GetDeps(){
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl get deployments --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function DelPod(){
+  var input9 = document.getElementById("in9").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl delete pod "+input9+ " --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+
+  function AnyCmd(){
+  var input11 = document.getElementById("in11").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x="+input11+" --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function DelDep(){
+  var input10 = document.getElementById("in10").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl delete deployment "+input10+ " --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function DelAll(){
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl delete all --all --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  
+  function DepReplicas(){
+  var input7 = document.getElementById("in7").value;
+  var input8 = document.getElementById("in8").value;
+  var xhr = new XMLHttpRequest();
+  
+  xhr.open("GET", "http://192.168.0.15/cgi-bin/tsk7.py?x=kubectl scale deployment "+ input7 +" --replicas="+ input8 + " --kubeconfig admin.conf",true )
+  xhr.send();
+  xhr.onload=function()
+    {
+    var output = xhr.responseText;
+    document.getElementById("p1").innerHTML = output;
+    }
+  }
+  </script>
+  
+ 
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>Kube-Web_UI</title>
+</head>
+<body>
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">Kube-Web-UI</span>
+          </a>
+          
+          
+        </div>
+      </header>
+
+      <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+          <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">              
+
+            </div>
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <!--<h2 class="text-gray-900 text-lg title-font font-medium mb-2">Enter name of pod</h2>-->
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Launch Pod</h2>
+              <p class="leading-relaxed text-base">Enter Pod Name</p>
+              <input type="text" id="in1" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <p class="leading-relaxed text-base">Enter Image Name</p>
+              <input type="text" id="in2" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <button onclick="RunPod();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              <br>
+              
+              </a>
+            </div>
+          </div>
+          <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Create Deployment</h2>
+              <p class="leading-relaxed text-base">Enter Deployment Name</p>
+              <input type="text" id="in3" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <p class="leading-relaxed text-base">Enter Image Name</p>
+              <input type="text" id="in4" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <button onclick="CrtDep();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+            <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+          </div>
+          <div class="flex items-center lg:w-3/5 mx-auto sm:flex-row flex-col">
+            <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Expose Deployment</h2>
+              <p class="leading-relaxed text-base">Enter Depoyment Name</p>
+              <input type="text" id="in5" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <p class="leading-relaxed text-base">Enter Port Number</p>
+              <input type="text" id="in6" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <button onclick="ExposeDep();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+            
+          </div>
+        <br><br>
+    
+          <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Scale Up Deployments</h2>
+              <p class="leading-relaxed text-base">Enter Deployment Name</p>
+              <input type="text" id="in7" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <p class="leading-relaxed text-base">Enter No. of Replicas</p>
+              <input type="text" id="in8" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <button onclick="DepReplicas();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+            <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+          </div>
+          <div class="flex items-center lg:w-3/5 mx-auto sm:flex-row flex-col">
+            <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Delete a Pod</h2>
+              <p class="leading-relaxed text-base">Enter Pod Name</p>
+              <input type="text" id="in9" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <button onclick="DelPod();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+          </div>
+          <br><br>
+    
+          <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Delete a Deployment</h2>
+              <p class="leading-relaxed text-base">Enter Deployment Name</p>
+              <input  type="text" id="in10" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">              
+              <button onclick="DelDep();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+            <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+          </div>
+          <div class="flex items-center lg:w-3/5 mx-auto sm:flex-row flex-col">
+            <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Delete all Resources</h2>
+              <p class="leading-relaxed text-base">Be cautious</p>
+              <p class="leading-relaxed text-base">This will delete all your Resources.</p>
+              <button onclick="DelAll();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+          </div>
+          <br><br>
+    
+          <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Get all pods</h2>
+              <button onclick="GetPods();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+            <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+          </div>
+          <div class="flex items-center lg:w-3/5 mx-auto sm:flex-row flex-col">
+            <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Get all Deployments</h2>
+              <button onclick="GetDeps();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+          </div>
+          <br><br>
+          <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 class="text-gray-900 text-lg title-font font-medium mb-2">Run Any K8s Command</h2>
+              <p class="leading-relaxed text-base">Enter Command</p>
+              <input type="text" id="in11" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+              <button onclick="AnyCmd();" class="inline-flex text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded">Click Here</button>
+              </a>
+            </div>
+            <div class="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              
+            </div>
+        </div>
+      </section>
+
+      
+      <div class="relative">
+        <label for="message" class="leading-7 text-sm text-gray-600"><h2 class="text-gray-900 text-lg title-font font-medium mb-2">Output will be shown here.</h2></label>
+        <pre>
+        <textarea id="p1" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-64 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+	</pre>
+      </div>
+      <br><br><br><br><br>
+
+</body>
+</html>
